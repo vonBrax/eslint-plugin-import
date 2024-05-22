@@ -4,8 +4,15 @@ const base = require('./base');
  * The basics.
  * @type {Object}
  */
-module.exports = {
+module.exports  = {
   ...base,
+  // need all these for parsing dependencies (even if _your_ code doesn't need
+  // all of them)
+  parserOptions: {
+    sourceType: 'module',
+    ecmaVersion: 2018,
+  },
+
   rules: {
     // analysis/correctness
     'import/no-unresolved': 'error',
@@ -18,16 +25,5 @@ module.exports = {
     'import/no-named-as-default': 'warn',
     'import/no-named-as-default-member': 'warn',
     'import/no-duplicates': 'warn',
-  },
-  languageOptions: {
-    parserOptions: {
-      sourceType: 'module',
-      ecmaVersion: 2018,
-    },
-  },
-  settings: {
-    'import/parsers': {
-      espree: ['.js', '.cjs', '.mjs', '.jsx'],
-    },
   },
 };
