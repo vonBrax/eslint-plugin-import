@@ -7,6 +7,10 @@ function isJSFile(f) {
   return path.extname(f) === '.js';
 }
 
+function isNotBaseConfigFile(f) {
+  return path.basename(f) !== 'base.js';
+}
+
 describe('package', function () {
   const pkg = path.join(process.cwd(), 'src');
   let module;
@@ -37,7 +41,7 @@ describe('package', function () {
   it('exports all configs', function (done) {
     fs.readdir(path.join(process.cwd(), 'config'), function (err, files) {
       if (err) { done(err); return; }
-      files.filter(isJSFile).forEach((file) => {
+      files.filter(isJSFile).filter(isNotBaseConfigFile).forEach((file) => {
         if (file[0] === '.') { return; }
         expect(module.configs).to.have.property(path.basename(file, '.js'));
       });
