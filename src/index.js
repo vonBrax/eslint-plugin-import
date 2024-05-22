@@ -1,4 +1,6 @@
-export const rules = {
+const { name, version } = require('../package.json');
+
+const rules = {
   'no-unresolved': require('./rules/no-unresolved'),
   named: require('./rules/named'),
   default: require('./rules/default'),
@@ -54,18 +56,30 @@ export const rules = {
   'imports-first': require('./rules/imports-first'),
 };
 
-export const configs = {
-  recommended: require('../config/recommended'),
+const configs = {
+  recommended: require('../config-legacy/recommended'),
 
-  errors: require('../config/errors'),
-  warnings: require('../config/warnings'),
+  errors: require('../config-legacy/errors'),
+  warnings: require('../config-legacy/warnings'),
 
   // shhhh... work in progress "secret" rules
-  'stage-0': require('../config/stage-0'),
+  'stage-0': require('../config-legacy/stage-0'),
 
   // useful stuff for folks using various environments
-  react: require('../config/react'),
-  'react-native': require('../config/react-native'),
-  electron: require('../config/electron'),
-  typescript: require('../config/typescript'),
+  react: require('../config-legacy/react'),
+  'react-native': require('../config-legacy/react-native'),
+  electron: require('../config-legacy/electron'),
+  typescript: require('../config-legacy/typescript'),
 };
+
+const plugin = {
+  meta: {
+    name,
+    version,
+  },
+  rules,
+  configs,
+  processors: {},
+};
+
+module.exports = plugin;
